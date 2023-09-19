@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const appliedStudentsRouter = require('./routes/applied_students_router')
+
 const app = express();
 
 //mongodb connection
@@ -8,6 +10,9 @@ require('./config/db')
 // 
 app.use(cors())
 app.use(express.json())
+
+// applied students routes
+app.use('/applied-students', appliedStudentsRouter);
 
 
 // base url

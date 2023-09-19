@@ -30,15 +30,15 @@ const appliedStudentsSchema = mongoose.Schema({
         required: true,
     },
     applicant_photoURL: {
-        type: string,
-        required: true,
+        type: String,
+      
     },
     applicant_father_name: {
-        type: string,
+        type: String,
         required: true,
     },
     applicant_father_occupation: {
-        type: string,
+        type: String,
         required: true,
     },
     applicant_father_mobile_no: {
@@ -46,11 +46,11 @@ const appliedStudentsSchema = mongoose.Schema({
         required: true,
     },
     applicant_mother_name: {
-        type: string,
+        type: String,
         required: true,
     },
     applicant_mother_occupation: {
-        type: string,
+        type: String,
         required: true,
     },
     applicant_mother_mobile_no: {
