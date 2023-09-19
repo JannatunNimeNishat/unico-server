@@ -26,9 +26,35 @@ const getAllAppliedStudents = async (req, res) => {
     }
 }
 
+const getSingleAppliedStudent = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const query = { applicant_email: email }
+        const singleApplicantStudent = await AppliedStudents.findOne(query);
+
+        if (singleApplicantStudent) {
+            res.status(200).send({
+                success: true,
+                message: 'return single applied student information',
+                data: singleApplicantStudent
+            });
+        } else {
+            res.status(404).send(
+                {
+                    success: false,
+                    message: 'no applied student is not found'
+                }
+            )
+        }
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
 
 
 
 
 
-module.exports = { getAllAppliedStudents };
+
+module.exports = { getAllAppliedStudents, getSingleAppliedStudent };
