@@ -1,4 +1,3 @@
-
 const AppliedStudents = require('../models/applied_students.model');
 
 
@@ -16,7 +15,7 @@ const getAllAppliedStudents = async (req, res) => {
             res.status(404).send(
                 {
                     success: false,
-                    message: 'no applied student is not found'
+                    message: 'no applied student is found'
                 }
             )
         }
@@ -53,7 +52,21 @@ const getSingleAppliedStudent = async (req, res) => {
 }
 
 
-
+const createStudent = async(req,res) =>{
+    
+        console.log('new user');
+        const newApplicant = req.body;
+        const email = req.params.applicant_email;
+        const query = { applicant_email: email }
+        const isPresent = await appliedStudentsCollections.findOne(query)
+        if (isPresent) {
+            return res.send('already present in appliedStudents collection')
+        }
+       
+        const result = await appliedStudentsCollections.insertOne(newApplicant);
+        res.send(result)
+   
+}
 
 
 

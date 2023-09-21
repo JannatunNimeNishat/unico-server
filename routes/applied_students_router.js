@@ -4,7 +4,7 @@ const { getAllAppliedStudents, getSingleAppliedStudent } = require('../controlle
 
 const router = express.Router();
 
-router.get('/', getAllAppliedStudents)
-router.get('/:email', getSingleAppliedStudent)
+router.get('/', getAllAppliedStudents);
+router.get('/:email', getSingleAppliedStudent);
 
 module.exports = router;
