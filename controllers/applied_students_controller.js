@@ -52,20 +52,36 @@ const getSingleAppliedStudent = async (req, res) => {
 }
 
 
-const createStudent = async(req,res) =>{
-    
-        console.log('new user');
-        const newApplicant = req.body;
-        const email = req.params.applicant_email;
-        const query = { applicant_email: email }
-        const isPresent = await appliedStudentsCollections.findOne(query)
-        if (isPresent) {
-            return res.send('already present in appliedStudents collection')
-        }
-       
-        const result = await appliedStudentsCollections.insertOne(newApplicant);
-        res.send(result)
-   
+// 
+app.get('/check-role/:email', async (req, res) => {
+    const email = req.params.email;
+    console.log(email);
+    if (!email) {
+        return res.send(' ')
+    }
+    const query = { applicant_email: email }
+    const user = await appliedStudentsCollections.findOne(query)
+
+    const role = user.role;
+
+    res.send(role)
+})
+
+// 
+const createStudent = async (req, res) => {
+
+    console.log('new user');
+    const newApplicant = req.body;
+    const email = req.params.applicant_email;
+    const query = { applicant_email: email }
+    const isPresent = await appliedStudentsCollections.findOne(query)
+    if (isPresent) {
+        return res.send('already present in appliedStudents collection')
+    }
+
+    const result = await appliedStudentsCollections.insertOne(newApplicant);
+    res.send(result)
+
 }
 
 
