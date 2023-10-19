@@ -51,9 +51,36 @@ const getSingleAppliedStudent = async (req, res) => {
     }
 }
 
+//delete a student
+const deleteSingleAppliedStudent = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const query = { applicant_email: email }
+        const singleApplicantStudent = await AppliedStudents.deleteOne(query);
+        res.send(singleApplicantStudent);
+        if (singleApplicantStudent?.deletedCount>1) {
+            res.status(200).send({
+                success: true,
+                message: 'student is successfully deleted',
+                data: singleApplicantStudent
+            });
+        } else {
+            res.status(404).send(
+                {
+                    success: false,
+                    message: 'no applied student is not found'
+                }
+            )
+        }
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
 
 // 
-app.get('/check-role/:email', async (req, res) => {
+/* app.get('/check-role/:email', async (req, res) => {
     const email = req.params.email;
     console.log(email);
     if (!email) {
@@ -65,7 +92,7 @@ app.get('/check-role/:email', async (req, res) => {
     const role = user.role;
 
     res.send(role)
-})
+}) */
 
 // 
 const createStudent = async (req, res) => {
@@ -86,4 +113,4 @@ const createStudent = async (req, res) => {
 
 
 
-module.exports = { getAllAppliedStudents, getSingleAppliedStudent };
+module.exports = { getAllAppliedStudents, getSingleAppliedStudent,deleteSingleAppliedStudent };
